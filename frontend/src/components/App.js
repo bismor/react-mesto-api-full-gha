@@ -133,7 +133,6 @@ function App() {
   }
 
   function handleUpdateAvatar(userAvatar) {
-    console.log(userAvatar)
     api
       .setUserAvatar(userAvatar)
       .then((data) => {
@@ -146,11 +145,9 @@ function App() {
   }
 
   function handleAddPlaceSubmit(newcard) {
-    console.log("newcard", newcard);
     api
       .addCard(newcard)
       .then((data) => {
-        console.log(data)
         setCards([data, ...cards]);
         closeAllPopups();
       })

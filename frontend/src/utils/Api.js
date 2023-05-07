@@ -68,7 +68,6 @@ class Api {
   }
 
   addCard(data) {
-    console.log('data', data)
     return fetch(`${this._baseUrl}cards`, {
       method: "POST",
       body: JSON.stringify(data),
