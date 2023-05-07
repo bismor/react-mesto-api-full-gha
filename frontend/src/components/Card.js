@@ -3,7 +3,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card({ onCardClick, onCardLike, onCarDislike, card, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
+
   const isOwn = card.owner._id === currentUser._id;
+
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
   const cardLikeButtonClassName = `mesto__like ${
     isLiked && "mesto__like-active"

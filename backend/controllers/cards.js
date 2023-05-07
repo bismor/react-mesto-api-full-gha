@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/not-found-err');
 
 module.exports.getCards = async (req, res, next) => {
   try {
-    const data = await card.find({}).populate('owner');
+    const data = await card.find({}).populate(['likes', 'owner']);
     res.status(HTTP_STATUS_CODE.OK)
       .send({ data });
   } catch (error) {
@@ -22,7 +22,7 @@ module.exports.createCard = async (req, res, next) => {
 
     const createCards = await card.create({ name, link, owner: userId });
 
-    const data = await card.find({ _id: createCards._id }).populate('owner');
+    const data = await card.find({ _id: createCards._id }).populate(['likes', 'owner']);
 
     res.status(HTTP_STATUS_CODE.OK)
       .send({ data });
