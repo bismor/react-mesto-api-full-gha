@@ -1,0 +1,13 @@
+.main {
+  padding-top: 42px;
+  max-width: 88.125vw;
+  margin: 0 auto 0 auto;
+}
+
+@media screen and (min-width: 1280px) {
+  .main {
+    width: 100%;
+    max-width: 880px;
+    padding-top: 36.25px;
+  }
+}

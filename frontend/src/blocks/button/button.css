@@ -1,0 +1,22 @@
+.button {
+  flex-shrink: 0;
+  background-color: black;
+  width: 100%;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  padding-top: 17px;
+  padding-bottom: 15px;
+  grid-area: b;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1280px) {
+  .button {
+    width: 150px;
+  }
+}
+
+.button:hover {
+  opacity: 60%;
+}

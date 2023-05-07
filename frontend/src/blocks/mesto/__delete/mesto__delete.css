@@ -1,0 +1,17 @@
+.mesto__delete {
+  position: absolute;
+  background: url('../../../images/basket.png');
+  cursor: pointer;
+  width: 18px;
+  height: 19px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  top: 20px;
+  right: 20px;
+}
+
+.mesto__delete:hover {
+  opacity: 50%;
+}

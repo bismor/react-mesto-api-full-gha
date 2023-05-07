@@ -1,0 +1,24 @@
+.mesto__ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media screen and (min-width: 800px) {
+  .mesto__ul {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    row-gap: 17px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .mesto__ul {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+

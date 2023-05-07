@@ -1,0 +1,11 @@
+.profile__avatar {
+  z-index:0;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.profile__avatar:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}

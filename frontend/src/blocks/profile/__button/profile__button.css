@@ -1,0 +1,24 @@
+.profile__button {
+  max-width: 18px;
+  height: 18px;
+  background-color: black;
+  border: 1px solid white;
+  grid-area: b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__button {
+    max-width: 24px;
+    height: 24px;
+  }
+}
+
+.profile__button:hover {
+  opacity: 60%;
+}
