@@ -20,6 +20,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 });
 
 const allowedCors = [
+  'http://localhost:80',
   'http://localhost:3000',
   'http://localhost:3001',
   'kosyachenko.students.nomoredomains.monster',
