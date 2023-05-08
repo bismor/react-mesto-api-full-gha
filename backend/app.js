@@ -24,6 +24,7 @@ const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3001',
   'kosyachenko.students.nomoredomains.monster',
+  'api.kosyachenko.students.nomoredomains.monster',
 ];
 
 app.use((req, res, next) => {
