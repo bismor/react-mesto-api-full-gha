@@ -6,6 +6,7 @@ const { celebrate, Joi } = require('celebrate');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const ConflictError = require('./errors/conflict-err');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   createUser, login,
 } = require('./controllers/users');
@@ -43,6 +44,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
+app.use(requestLogger);
+
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().regex(/^\S+@\S+\.\S+$/),
@@ -58,9 +61,10 @@ app.post('/signup', celebrate({
     password: Joi.string().required(),
   }),
 }), createUser);
-
 app.use('/users', auth, require('./routes/users'));
 app.use('/cards', auth, require('./routes/cards'));
+
+app.use(errorLogger);
 
 app.use((req, res, next) => {
   next(new NotFoundError('Передан "userId" несуществующего пользователя'));
