@@ -55,24 +55,26 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    if (loggedIn) {
+      api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
 
-    const getCardsData = async () => {
-      try {
-        const cards = await api.getInitialCards();
-        setCards(cards);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCardsData();
+      const getCardsData = async () => {
+        try {
+          const cards = await api.getInitialCards();
+          setCards(cards);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getCardsData();
+    }
   }, [loggedIn, tokenCheck]);
 
   const closeAllPopups = useCallback(() => {
