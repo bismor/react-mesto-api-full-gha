@@ -2,6 +2,7 @@
 const card = require('../models/card');
 const HTTP_STATUS_CODE = require('../utils/http-status-code');
 const NotFoundError = require('../errors/not-found-err');
+const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getCards = async (req, res, next) => {
   try {
@@ -34,16 +35,22 @@ module.exports.createCard = async (req, res, next) => {
 module.exports.deleteCardById = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    // на этой строчке мы ищем карточку по ID карточки и userID пользователя.
-    // Ситуации при которой у чужой карточки будет userID чужого пользователя невозможна
-    const cardData = await card.findOneAndRemove({ _id: req.params.cardId, owner: userId });
+    const { _id } = req.params;
+
+    const cardData = await card.findById(_id);
 
     if (!cardData) {
-      throw new NotFoundError('Карточка с таким ID не найдена у пользователя с таким ID');
+      throw new NotFoundError('Нет карточки по заданному ID');
     }
 
-    if (cardData) {
-      res.status(HTTP_STATUS_CODE.OK).send({ data: cardData });
+    if (!card.owner.equals(userId)) {
+      throw new ForbiddenError('Нельзя удалять чужую карточку');
+    }
+
+    const cardDelete = card.deleteOne({ _id: req.params.cardId });
+
+    if (cardDelete) {
+      req.status(HTTP_STATUS_CODE.OK).send({ data: cardData });
     }
   } catch (error) {
     next(error);
