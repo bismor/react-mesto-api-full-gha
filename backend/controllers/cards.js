@@ -48,7 +48,6 @@ module.exports.deleteCardById = async (req, res, next) => {
     }
 
     const cardDelete = card.deleteOne({ _id: req.params.cardId });
-
     if (cardDelete) {
       req.status(HTTP_STATUS_CODE.OK).send({ data: cardData });
     }
