@@ -24,7 +24,7 @@ module.exports.createCard = async (req, res, next) => {
     const createCards = await card.create({ name, link, owner: userId });
 
     const data = await card.find({ _id: createCards._id }).populate(['likes', 'owner']);
-
+    console.log(data);
     res.status(HTTP_STATUS_CODE.OK)
       .send({ data });
   } catch (error) {
@@ -35,22 +35,20 @@ module.exports.createCard = async (req, res, next) => {
 module.exports.deleteCardById = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const { _id } = req.params;
 
-    const cardData = await card.findById(_id);
+    const cardData = await card.findById(req.params.cardId).populate('owner');
 
     if (!cardData) {
       throw new NotFoundError('Нет карточки по заданному ID');
     }
 
-    if (!card.owner.equals(userId)) {
+    if (userId !== cardData.owner._id.toString()) {
       throw new ForbiddenError('Нельзя удалять чужую карточку');
     }
 
-    const cardDelete = card.deleteOne({ _id: req.params.cardId });
-    if (cardDelete) {
-      req.status(HTTP_STATUS_CODE.OK).send({ data: cardData });
-    }
+    const cardDelete = await card.findByIdAndRemove({ _id: cardData._id.toString() }).select('-owner');
+
+    res.status(HTTP_STATUS_CODE.OK).send({ cardDelete });
   } catch (error) {
     next(error);
   }
