@@ -64,11 +64,12 @@ app.post('/signup', celebrate({
 app.use('/users', auth, require('./routes/users'));
 app.use('/cards', auth, require('./routes/cards'));
 
-app.use(errorLogger);
-
 app.use((req, res, next) => {
   next(new NotFoundError('Передан "userId" несуществующего пользователя'));
 });
+
+app.use(errorLogger);
+
 app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
@@ -79,7 +80,6 @@ app.use((err, req, res, next) => {
   return res
     .status(statusCode)
     .send({
-      // проверяем статус и выставляем сообщение в зависимости от него
       message: statusCode === 500
         ? 'На сервере произошла ошибка'
         : message,

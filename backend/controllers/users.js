@@ -8,7 +8,6 @@ const UnauthorizedError = require('../errors/unauthorized-err');
 require('dotenv').config();
 
 const { JWT_SECRET } = process.env;
-// const ConflictError = require('../errors/conflict-err');
 
 module.exports.getUsers = async (req, res, next) => {
   try {
@@ -25,11 +24,6 @@ module.exports.createUser = async (req, res, next) => {
     const {
       name, about, avatar,
     } = req.body;
-
-    // const userEmail = await user.findOne({ email });
-    // if (userEmail) {
-    //   throw new ConflictError('Такой email уже существует');
-    // }
 
     const passwordHash = await bcrypt.hash(req.body.password, 10);
     const userData = await user.create({
