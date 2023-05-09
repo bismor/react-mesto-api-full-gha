@@ -24,7 +24,7 @@ module.exports.createCard = async (req, res, next) => {
     const createCards = await card.create({ name, link, owner: userId });
 
     const data = await card.find({ _id: createCards._id }).populate(['likes', 'owner']);
-    console.log(data);
+
     res.status(HTTP_STATUS_CODE.OK)
       .send({ data });
   } catch (error) {
