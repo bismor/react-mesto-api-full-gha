@@ -38,12 +38,6 @@ app.use((req, res, next) => {
   }
 });
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
 app.use(requestLogger);
 
 app.post('/signin', celebrate({
